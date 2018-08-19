@@ -1,0 +1,11 @@
+#P Es un mamifero?
+#P Es un animal domestico?
+#R Un perro
+#P Es un animal de granja?
+#R Una oveja
+#R Un elefante
+#P Es un ave?
+#R Un pinguino
+#P Vive en el oceano?
+#R Un calamar
+#R Una arana

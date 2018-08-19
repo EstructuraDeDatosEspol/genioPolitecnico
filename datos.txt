@@ -1,0 +1,23 @@
+#P Es un mamifero?
+#P Es un animal domestico?
+#P Es un felino?
+#R Un gato
+#R Un perro
+#P Es un animal de granja?
+#P Da leche?
+#R Una vaca
+#R Una oveja
+#P Come carne?
+#P Es el rey de la selva?
+#R Un leon
+#R Un tigre
+#R Un elefante
+#P Es un ave?
+#P Es un pajaro?
+#R Un pinzon
+#R Un pinguino
+#P Vive en el oceano?
+#P Tiene muchos dientes?
+#R Un tiburon
+#R Un calamar
+#R Una arana

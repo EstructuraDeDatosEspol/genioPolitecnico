@@ -1,0 +1,95 @@
+/* 
+    Created on : 19-08-2018
+    Author     : steven
+*/
+#principal {
+    -fx-padding: 20 20 20 20;
+    -fx-Alignment: TOP_CENTER;
+    -fx-effect: dropshadow(three-pass-box, black, 10, 0.5, 0, 0); 
+}
+
+.label {
+    -fx-font-family: "Cambria";
+    -fx-font-size: 15px;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+#welcome-text {
+   -fx-font-size: 50px;
+   -fx-font-family: "Arial Black";
+   -fx-fill: #0076a3;
+   -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+#actiontarget {
+  -fx-fill: FIREBRICK;
+  -fx-font-weight: bold;
+  -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );  
+}
+
+.text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+    -fx-Alignment: CENTER;
+    -fx-max-width: 200;
+    -fx-max-height: 20;
+}
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, -fx-background ;
+}
+
+.button {
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.button:pressed{
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
+}
+
+button:hover{
+    -fx-background-color: darkcyan;
+    -fx-text-fill: #1d1d1d;
+}
+
+.dialog-pane{
+    -fx-border-color: grey;
+    -fx-border-width: 2.0px;
+}
+
+#mensajeEntrada{
+    -fx-hgap: 10;
+    -fx-vgap: 0;
+    -fx-alignment: center;
+    /*-fx-grid-lines-visible: true;*/
+}
+
+#nomvbox{
+    -fx-border-color: black;
+    -fx-padding: 10 10 10 10;
+}
+
+#genralvBox{
+    -fx-background-color: grey;
+    -fx-border-color: black;
+}
+
+#Botonesvbox{
+    -fx-border-color: black;
+    -fx-padding: 70 10 69 10;
+}
+
+#PuntosTiempo{
+    -fx-border-color: black;
+    -fx-padding: 30 10 30 10;
+}
+
+#PanelDerecho{
+    -fx-background-color: darkgoldenrod;
+}
