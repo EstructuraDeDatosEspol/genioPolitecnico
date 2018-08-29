@@ -19,6 +19,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -36,6 +37,9 @@ public class Abb{
     private Label primero;
     private TextField cuadro;
     private Button boton2;
+    private HBox respuestas;
+    private Button si;
+    private Button no;
     Scanner s = new Scanner(System.in);
     
     
@@ -74,35 +78,41 @@ public class Abb{
         cuerpo.setAlignment(Pos.CENTER);
         
         boton2 = new Button(siguiente);
+        si = new Button("Si");
+        no = new Button("No");
+        respuestas = new HBox(30);
+        respuestas.setId("respuestas");
+        respuestas.getChildren().addAll(si,no);
         pane.getChildren().addAll(titulo, cuerpo, boton2);
     }
     
     private void accioneS(){
         boton2.setOnAction(e-> {
             pregunta.setText("si o no");
-            cuadro.setVisible(true);
+            //cuadro.setVisible(true);
             boton2.setText("Responder");
             accioneP(root);
+            pane.getChildren().remove(boton2);
+            pane.getChildren().add(respuestas);
         });
     }
     
     private void accioneP(Node<Item> r){
         primero.setText(r.getData().getTexto());
         
-        boton2.setOnAction(e-> {            
-            if(cuadro.getText().equals("si")){
-                cuadro.setText("");
-                if(r.getLeft().getLeft() == null){
-                    accionRespueta(r,"i");
-                }else
-                    accioneP(r.getLeft());
-            }else if(cuadro.getText().equals("no")){
-                cuadro.setText("");
-                if(r.getRight().getRight()== null){
-                    accionRespueta(r,"d");
-                }else
-                    accioneP(r.getRight());
-            }
+        si.setOnAction(e -> {
+            cuadro.setText("");
+            if(r.getLeft().getLeft() == null){
+                accionRespueta(r,"i");
+            }else
+                accioneP(r.getLeft());
+        });
+        no.setOnAction(e -> {
+            cuadro.setText("");
+            if(r.getRight().getRight()== null){
+                accionRespueta(r,"d");
+            }else
+                accioneP(r.getRight());
         });
     }
     
@@ -112,26 +122,28 @@ public class Abb{
         else it = r.getRight();
         primero.setText("Es "+ it.getData().getTexto()+"? ");
         
-        boton2.setOnAction(e-> {
-            if(cuadro.getText().equals("si")){
-                cuadro.setText("");
-                primero.setText("Eh adivinado!");
-                cuadro.setText("");
-                cuadro.setVisible(false);
-                pregunta.setVisible(false);
-                reseteo();
-            }else if(cuadro.getText().equals("no")){
-                cuadro.setText("");
-                primero.setText("Boo!");
-                pregunta.setText("Ayudame a mejorar mi prediccion!");
-                cuadro.setVisible(false);
-                nuevaPregunta(r,d);
-            }
+        si.setOnAction(e -> {
+            cuadro.setText("");
+            primero.setText("Eh adivinado!");
+            cuadro.setText("");
+            //cuadro.setVisible(false);
+            pregunta.setVisible(false);
+            reseteo();
+        });
+        no.setOnAction(e -> {
+            cuadro.setText("");
+            primero.setText("Boo!");
+            pregunta.setText("Ayudame a mejorar mi prediccion!");
+            //cuadro.setVisible(false);
+            nuevaPregunta(r,d);
         });
     }
     
     private void reseteo(){
         boton2.setText("Repetir");
+        pane.getChildren().remove(respuestas);
+        pane.getChildren().add(boton2);
+        
         boton2.setOnAction(e -> {
             primero.setText("Primero piense en un animal que yo trataré de adivinarlo...");
             pregunta.setVisible(true);
@@ -143,8 +155,10 @@ public class Abb{
     
     private void nuevaPregunta(Node<Item> r,String d){
         boton2.setText("Si, Encantado!");
+        pane.getChildren().remove(respuestas);
+        pane.getChildren().add(boton2);
         
-        boton2.setOnAction(e -> {
+        boton2.setOnAction(e -> {            
             pregunta.setVisible(false);
             primero.setText("Que animal estabas pensando?");
             ingresoAnimal(r,d);
@@ -155,53 +169,66 @@ public class Abb{
     
     private void ingresoAnimal(Node<Item> r, String d){
         boton2.setOnAction(e -> {
-            Node<Item> it = null;
-            if(d.equals("i")) it = r.getLeft();
-            else it = r.getRight();
-            primero.setText("Escribe una pregunta que permita diferenciar entre "+cuadro.getText()+" y "+it.getData().getTexto());
-            laRespuestaEs(r,d,cuadro.getText());
-            cuadro.setText("");
+            String animal = cuadro.getText();
+            if(!animal.equals("")){
+                Node<Item> it = null;
+                if(d.equals("i")) it = r.getLeft();
+                else it = r.getRight();
+                primero.setText("Escribe una pregunta que permita diferenciar entre "+animal+" y "+it.getData().getTexto());
+                laRespuestaEs(r,d,animal);
+                cuadro.setText("");
+            }            
         });
     }
     
     private void laRespuestaEs(Node<Item> r, String d, String animal){
         boton2.setOnAction(e -> {
-            primero.setText("\nPara un "+animal+", la respuesta a la pregunta: \""+cuadro.getText()+"\" es:");
-            pregunta.setText("si o no");
-            pregunta.setVisible(true);
-            
-            agregarAnimal(r,d,animal,cuadro.getText());
-            cuadro.setText("");
+            String preg = cuadro.getText();
+            if(!preg.equals("")){
+                primero.setText("\nPara un "+animal+", la respuesta a la pregunta: \""+preg+"\" es:");
+
+                pane.getChildren().remove(boton2);
+                pane.getChildren().add(respuestas);
+
+                pregunta.setText("si o no");
+                pregunta.setVisible(true);
+
+                cuadro.setVisible(false);
+                si.setOnAction(f->{
+                    agregarAnimal(r,d,animal,preg, true);
+                });
+                no.setOnAction(f->{
+                    agregarAnimal(r,d,animal,preg, false);
+                });
+            }
         });
     }
     
-    private void agregarAnimal(Node<Item> r, String d, String animal, String preguntaN){
-        boton2.setOnAction(e -> {
-            Node<Item> it = null;
-            if(d.equals("i")) it = r.getLeft();
-            else it = r.getRight();
+    private void agregarAnimal(Node<Item> r, String d, String animal, String preguntaN, boolean respuesta){
+        Node<Item> it = null;
+        if(d.equals("i")) it = r.getLeft();
+        else it = r.getRight();
 
-            Node<Item> nuevo2 = new Node<>(new Item("#R",animal));
-            Node<Item> nuevoP = new Node<>(new Item("#P",preguntaN));
-            if(d.equals("i")) r.setLeft(nuevoP);
-            else r.setRight(nuevoP);
-            
-            if(cuadro.getText().equals("si")){
-                nuevoP.setLeft(nuevo2);
-                nuevoP.setRight(it);
-            }
-            else{
-                nuevoP.setRight(nuevo2);
-                nuevoP.setLeft(it);
-            }
-            
-            cuadro.setText("");
-            pregunta.setVisible(false);
-            cuadro.setVisible(false);
-            primero.setText("Gracias, he aprendido algo nuevo!");
-            guardar();
-            reseteo();
-        });
+        Node<Item> nuevo2 = new Node<>(new Item("#R",animal));
+        Node<Item> nuevoP = new Node<>(new Item("#P",preguntaN));
+        if(d.equals("i")) r.setLeft(nuevoP);
+        else r.setRight(nuevoP);
+
+        if(respuesta){
+            nuevoP.setLeft(nuevo2);
+            nuevoP.setRight(it);
+        }
+        else{
+            nuevoP.setRight(nuevo2);
+            nuevoP.setLeft(it);
+        }
+
+        cuadro.setText("");
+        pregunta.setVisible(false);
+        
+        primero.setText("Gracias, he aprendido algo nuevo!");
+        guardar();
+        reseteo();
     }
     
     public Pane getPane(){
@@ -223,14 +250,14 @@ public class Abb{
             if(pila.peek().getLeft() == null && !pila.peek().getData().getTipo().equals("#R")){
                 pila.peek().setLeft(n);
             }else{
-                Node<Item> nodo = buscarD();
+                Node<Item> nodo = buscarDerecha();
                 nodo.setRight(n);
             }
         }
         pila.push(n);
     }
     
-    private Node<Item> buscarD(){
+    private Node<Item> buscarDerecha(){
         Deque<Node<Item>> copia = new LinkedList<>();
         Deque<Node<Item>> copia2 = new LinkedList<>();
         

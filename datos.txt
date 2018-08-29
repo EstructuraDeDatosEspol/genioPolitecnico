@@ -1,6 +1,8 @@
 #P Es un mamifero?
 #P Es un animal domestico?
 #P Es un felino?
+#P Es rayado?
+#R Un tigrillo
 #R Un gato
 #R Un perro
 #P Es un animal de granja?
@@ -10,8 +12,14 @@
 #P Come carne?
 #P Es el rey de la selva?
 #R Un leon
+#P Tiene uso de razon?
+#R Humano
 #R Un tigre
+#P Tiene trompa larga?
 #R Un elefante
+#P Come bananas?
+#R Un mono
+#R Un venado
 #P Es un ave?
 #P Es un pajaro?
 #R Un pinzon
@@ -19,5 +27,13 @@
 #P Vive en el oceano?
 #P Tiene muchos dientes?
 #R Un tiburon
+#P Es un pez?
+#R Un pez payaso
+#P Tiene 8 tentaculos?
+#R Un pulpo
 #R Un calamar
+#P Es grande y tiene brazos diminutos?
+#R Dinousario
+#P Es un reptil?
+#R Un cocodrilo
 #R Una arana

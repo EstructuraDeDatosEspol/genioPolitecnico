@@ -8,6 +8,10 @@
     -fx-effect: dropshadow(three-pass-box, black, 10, 0.5, 0, 0); 
 }
 
+#respuestas {
+    -fx-Alignment: TOP_CENTER;
+}
+
 .label {
     -fx-font-family: "Cambria";
     -fx-font-size: 15px;
@@ -25,18 +29,6 @@
   -fx-fill: FIREBRICK;
   -fx-font-weight: bold;
   -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );  
-}
-
-.text-field {
-    -fx-background-color: -fx-text-box-border, -fx-background ;
-    -fx-background-insets: 0, 0 0 1 0 ;
-    -fx-background-radius: 0 ;
-    -fx-Alignment: CENTER;
-    -fx-max-width: 200;
-    -fx-max-height: 20;
-}
-.text-field:focused {
-    -fx-background-color: -fx-focus-color, -fx-background ;
 }
 
 .button {
@@ -92,4 +84,17 @@ button:hover{
 
 #PanelDerecho{
     -fx-background-color: darkgoldenrod;
+}
+
+/*Text Field tipo raya*/
+.text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+    -fx-Alignment: CENTER;
+    -fx-max-width: 200;
+    -fx-max-height: 20;
+}
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, -fx-background ;
 }
